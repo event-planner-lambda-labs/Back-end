@@ -11,7 +11,7 @@ server.use(cors())
 
 server.get('/', (req, res) => {
     res.json({
-        message: 'Welcome to the Staging of Event Planner'
+        message: 'Welcome to the staging of Event Planner'
     })
 })
 
