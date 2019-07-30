@@ -22,7 +22,7 @@ function findById(id) {
 }
 
 function add(host) {
-    const [id] = await db("host").insert("host")
+    const [id] = await db("host").insert(host)
     return findById(id);
 }
 
