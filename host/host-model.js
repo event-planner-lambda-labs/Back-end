@@ -2,22 +2,44 @@ const db = require("../database/dbConfig")
 
 
 module.exports = {
-    get,
     add,
     find,
-    findBy,
     findById,
     update,
     remove,
-    intToBoolean,
-    convertBoolean,
+    
 }
 
-function get(id) {
-    let host = db("host")
+function find() {
+  return db("host").select("id", "name")
+}
 
-    if (id) {
-        host.where({id})
-    }
+function findById(id) {
+    return db("host")
+    .select("id", "name")
+    .where({id})
+    .first()
+}
+
+function add(host) {
+    const [id] = await db("host").insert("host")
+    return findById(id);
+}
+
+function update(id, changes) {
+    return db("host")
+    .where({id})
+    .update(changes)
+    .then(()=>{
+        return db("host")
+        .where({id})
+        .first()
+    })
+}
+
+function remove(id) {
+    return db("host")
+    .where({id})
+    .del()
 }
 
