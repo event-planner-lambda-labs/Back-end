@@ -24,7 +24,7 @@ exports.up = function(knex) {
 
     events.date("event_date").notNullable();
 
-    events.string("details", 256).notNullable();
+    events.text("details", longtext).notNullable();
 
     events
       .boolean("public")

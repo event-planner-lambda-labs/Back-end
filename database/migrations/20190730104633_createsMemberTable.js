@@ -3,15 +3,6 @@ exports.up = function(knex) {
     member.increments();
 
     member.string("name", 128).notNullable();
-
-    member
-      .integer("group_id")
-      .unsigned()
-      .notNullable()
-      .references("id")
-      .inTable("group")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
   });
 };
 

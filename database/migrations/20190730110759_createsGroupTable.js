@@ -7,7 +7,7 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
 
-      group
+    group
       .integer("member_id")
       .unsigned()
       .references("id")
@@ -18,5 +18,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists("group");
+  return knex.schema.dropTableIfExists("group");
 };
