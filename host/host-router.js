@@ -1,10 +1,9 @@
-const router = require("express").Router()
-
+const router = require("express").Router();
 
 const Hosts = require("./host-model");
+const authCheck = require("../api/middleware/checkToken");
 
 // Get
-
 router.get("/", (req, res) => {
   Hosts.find()
     .then(hosts => {
@@ -14,8 +13,7 @@ router.get("/", (req, res) => {
 });
 
 // Get by ID
-
-router.get("/:id", (req, res) => {
+router.get("/:id", authCheck, (req, res) => {
   Hosts.findById()
     .then(hosts => {
       res.status(200).json(hosts);
@@ -24,8 +22,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Post
-
-router.post("/", (req, res) => {
+router.post("/", authCheck, (req, res) => {
   Hosts.add()
     .then(hosts => {
       res.status(201).json(hosts);
@@ -34,8 +31,7 @@ router.post("/", (req, res) => {
 });
 
 // Put
-
-router.put("/:id", async (req, res) => {
+router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateHost = await Hosts.update(req.params.id, req.body);
     if (updateHost) {
@@ -50,8 +46,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete
-
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authCheck, (req, res) => {
   Hosts.remove(req.params.id)
     .then(count => {
       if (count > 0) {

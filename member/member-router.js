@@ -1,10 +1,10 @@
 const router = require("express").Router();
 
 const Members = require("./member-model");
+const authCheck = require("../api/middleware/checkToken");
 
 // Get
-
-router.get("/", (req, res) => {
+router.get("/", authCheck, (req, res) => {
   Members.find()
     .then(members => {
       res.status(200).json(members);
@@ -13,8 +13,7 @@ router.get("/", (req, res) => {
 });
 
 // Get by ID
-
-router.get("/:id", (req, res) => {
+router.get("/:id", authCheck, (req, res) => {
   Members.findById()
     .then(members => {
       res.status(200).json(members);
@@ -23,8 +22,7 @@ router.get("/:id", (req, res) => {
 });
 
 // Post
-
-router.post("/", (req, res) => {
+router.post("/", authCheck, (req, res) => {
   Members.add()
     .then(members => {
       res.status(201).json(members);
@@ -33,8 +31,7 @@ router.post("/", (req, res) => {
 });
 
 // Put
-
-router.put("/:id", async (req, res) => {
+router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateMember = await Member.update(req.params.id, req.body);
     if (updateMember) {
@@ -49,8 +46,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // Delete
-
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authCheck, (req, res) => {
   Members.remove(req.params.id)
     .then(count => {
       if (count > 0) {
