@@ -1,4 +1,4 @@
-const router = require("express").Router()
+const router = require("express").Router();
 
 const Groups = require("./group-model");
 
@@ -13,17 +13,17 @@ router.get("/", (req, res) => {
 });
 // Get Group Members
 
-router.get("/:id/members", async (req, res) => {
-    try {
-        const {id} = req.params;
-        const groupMembers = await Groups.getGroupMembers(id);
+router.get("/:id/members", authCheck, async (req, res) => {
+  try {
+    const { id } = req.params;
+    const groupMembers = await Groups.getGroupMembers(id);
 
-        res.status(200).json(groupMembers); 
-    } catch ({ message }) {
-        console.log({ message });
-        res.status(500).json({ message: "server error finding members" });
-      }
-})
+    res.status(200).json(groupMembers);
+  } catch ({ message }) {
+    console.log({ message });
+    res.status(500).json({ message: "server error finding members" });
+  }
+});
 
 // Get by ID
 
@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
 
 // Post
 
-router.post("/", (req, res) => {
+router.post("/", authCheck, (req, res) => {
   Groups.add()
     .then(groups => {
       res.status(201).json(groups);
@@ -47,7 +47,7 @@ router.post("/", (req, res) => {
 
 // Put
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateHost = await Groups.update(req.params.id, req.body);
     if (updateHost) {
@@ -63,7 +63,7 @@ router.put("/:id", async (req, res) => {
 
 // Delete
 
-router.delete("/:id", (req, res) => {
+router.delete("/:id", authCheck, (req, res) => {
   Groups.remove(req.params.id)
     .then(count => {
       if (count > 0) {

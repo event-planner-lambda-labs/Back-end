@@ -1,5 +1,4 @@
-const db = require("../database/dbConfig")
-
+const db = require("../database/dbConfig");
 module.exports = {
     getGroupMembers,
     add,
@@ -7,8 +6,20 @@ module.exports = {
     findById,
     update,
     remove,
-    
+    convertBoolean
 }
+
+function intToBoolean(int) {
+    return int === 1 ? true : false;
+  }
+  
+  function convertBoolean(events) {
+    const result = {
+      ...events,
+      public: intToBoolean(events.public)
+    };
+    return result;
+  }
 
 function find() {
   return db("events").select("id", "name")
