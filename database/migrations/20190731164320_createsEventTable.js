@@ -1,14 +1,3 @@
-/*
-event ID-done 
-event title-done 
-event host- done
-event members-done
-event location-done
-event time-done
-event date-done
-event details-done
-event public-done
-*/
 exports.up = function(knex) {
   return knex.schema.createTable("events", events => {
     events.increments();
@@ -24,7 +13,9 @@ exports.up = function(knex) {
 
     events.date("event_date").notNullable();
 
-    events.text("details").notNullable();
+    events.string("short_details", 255).notNullable();
+
+    events.text("long_details").notNullable();
 
     events
       .boolean("public")

@@ -5,8 +5,7 @@ module.exports = {
     find,
     findById,
     update,
-    remove,
-    
+    remove
 }
 
 function find() {
