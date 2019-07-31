@@ -1,50 +1,50 @@
-const db = require("../database/dbConfig")
+const db = require("../database/dbConfig");
 
 module.exports = {
-    getGroupMembers,
-    add,
-    find,
-    findById,
-    update,
-    remove
-}
+  getGroupMembers,
+  add,
+  find,
+  findById,
+  update,
+  remove
+};
 
 function find() {
-  return db("group").select("id", "name")
+  return db("group").select("id", "name");
 }
 
 function getGroupMembers(id) {
-    return db("group")
+  return db("group")
     .join("member", "group.member_id", "member.id")
-    .where("group.id",id)
-    .first()
+    .where("group.id", id)
+    .first();
 }
 
 function findById(id) {
-    return db("group")
+  return db("group")
     .select("id", "name")
-    .where({id})
-    .first()
+    .where({ id })
+    .first();
 }
 
-function add(group) {
-    const [id] = await db("group").insert(group)
-    return findById(id);
+async function add(group) {
+  const [id] = await db("group").insert(group);
+  return findById(id);
 }
 
 function update(id, changes) {
-    return db("group")
-    .where({id})
+  return db("group")
+    .where({ id })
     .update(changes)
-    .then(()=>{
-        return db("group")
-        .where({id})
-        .first()
-    })
+    .then(() => {
+      return db("group")
+        .where({ id })
+        .first();
+    });
 }
 
 function remove(id) {
-    return db("group")
-    .where({id})
-    .del()
+  return db("group")
+    .where({ id })
+    .del();
 }

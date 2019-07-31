@@ -4,7 +4,7 @@ const Members = require("./member-model");
 const authCheck = require("../api/middleware/checkToken");
 
 // Get
-router.get("/", authCheck, (req, res) => {
+router.get("/", (req, res) => {
   Members.find()
     .then(members => {
       res.status(200).json(members);
