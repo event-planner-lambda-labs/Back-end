@@ -3,8 +3,7 @@ const router = require("express").Router();
 const Events = require("./events-model");
 const authCheck = require("../api/middleware/checkToken");
 
-// Get
-
+// Get - works
 router.get("/", authCheck, async (req, res) => {
   try {
     const events = await Events.find();
@@ -15,17 +14,16 @@ router.get("/", authCheck, async (req, res) => {
   }
 });
 
-// Get by ID
-
+// Get by ID - works
 router.get("/:id", authCheck, (req, res) => {
-  Events.findById()
+  Events.findById(req.params.id)
     .then(events => {
       res.status(200).json(events);
     })
     .catch(error => res.status(500).json(error));
 });
 
-// Post
+// Post - works
 router.post("/", authCheck, async (req, res) => {
   const newEvent = req.body;
   try {
@@ -37,8 +35,7 @@ router.post("/", authCheck, async (req, res) => {
   }
 });
 
-// Put
-
+// Put - works
 router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateEvents = await Events.update(req.params.id, req.body);
@@ -53,8 +50,7 @@ router.put("/:id", authCheck, async (req, res) => {
   }
 });
 
-// Delete
-
+// Delete - works
 router.delete("/:id", authCheck, (req, res) => {
   Events.remove(req.params.id)
     .then(count => {

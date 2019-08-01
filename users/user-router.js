@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Users = require("./user-model");
 const authCheck = require("../api/middleware/checkToken");
 
-// Get
+// Get - works
 router.get("/", async (req, res) => {
   try {
     const users = await Users.find();
@@ -14,16 +14,16 @@ router.get("/", async (req, res) => {
   }
 });
 
-// Get by ID
+// Get by ID - works
 router.get("/:id", authCheck, (req, res) => {
-  Users.findById()
+  Users.findById(req.params.id)
     .then(user => {
       res.status(200).json(user);
     })
     .catch(error => res.status(500).json(error));
 });
 
-// Post - works/tested
+// Post - works
 router.post("/", authCheck, async (req, res) => {
   const user = req.body;
   if (user.username) {
@@ -39,7 +39,7 @@ router.post("/", authCheck, async (req, res) => {
   }
 });
 
-// Put
+// Put - works
 router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateUser = await Users.update(req.params.id, req.body);
@@ -54,7 +54,7 @@ router.put("/:id", authCheck, async (req, res) => {
   }
 });
 
-// Delete
+// Delete - works
 router.delete("/:id", authCheck, (req, res) => {
   Users.remove(req.params.id)
     .then(count => {

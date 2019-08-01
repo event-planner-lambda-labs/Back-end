@@ -2,10 +2,7 @@ exports.up = function(knex) {
   return knex.schema.createTable("events", events => {
     events.increments();
 
-    events
-      .string("title", 128)
-      .notNullable()
-      .unique();
+    events.string("title", 128).notNullable();
 
     events.string("location", 128).notNullable();
 

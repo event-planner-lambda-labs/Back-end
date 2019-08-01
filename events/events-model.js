@@ -34,7 +34,7 @@ function getGroupMembers(id) {
 
 function findById(id) {
   return db("events")
-    .select("id", "title")
+    .select("id", "*")
     .where({ id })
     .first();
 }

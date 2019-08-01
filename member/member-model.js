@@ -9,34 +9,33 @@ module.exports = {
 };
 
 function find() {
-  return db("member").select("id", "name");
+  return db("members").select("user_id", "group_id");
 }
 
-function findById(id) {
-  return db("member")
-    .select("id", "name")
-    .where({ id })
-    .first();
+function findById(user_id) {
+  return db("members")
+    .select("user_id", "group_id")
+    .where({ user_id });
 }
 
 async function add(member) {
-  const [id] = await db("member").insert(member);
-  return findById(id);
+  const [user_id] = await db("members").insert(member);
+  return findById(user_id);
 }
 
 function update(id, changes) {
-  return db("member")
+  return db("members")
     .where({ id })
     .update(changes)
     .then(() => {
-      return db("member")
+      return db("members")
         .where({ id })
         .first();
     });
 }
 
 function remove(id) {
-  return db("member")
+  return db("members")
     .where({ id })
     .del();
 }

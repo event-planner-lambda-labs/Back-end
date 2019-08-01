@@ -15,8 +15,9 @@ function find() {
 
 function getGroupMembers(id) {
   return db("group")
-    .join("member", "group.member_id", "member.id")
-    .where("group.id", id)
+    .join("members", "group_id", "user_id")
+    .select("user_id as user", "group_id as group", "name")
+    .where({ group_id: id })
     .first();
 }
 

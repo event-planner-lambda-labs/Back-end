@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Groups = require("./group-model");
 const authCheck = require("../api/middleware/checkToken");
 
-// Get
+// Get - works
 router.get("/", (req, res) => {
   Groups.find()
     .then(groups => {
@@ -25,25 +25,32 @@ router.get("/:id/members", authCheck, async (req, res) => {
   }
 });
 
-// Get by ID
+// Get by ID - works
 router.get("/:id", (req, res) => {
-  Groups.findById()
+  Groups.findById(req.params.id)
     .then(groups => {
       res.status(200).json(groups);
     })
     .catch(error => res.status(500).json(error));
 });
 
-// Post
-router.post("/", authCheck, (req, res) => {
-  Groups.add()
-    .then(groups => {
-      res.status(201).json(groups);
-    })
-    .catch(error => res.status(500).json(error));
+// Post - works
+router.post("/", authCheck, async (req, res) => {
+  const group = req.body;
+  if (group.name) {
+    try {
+      const addGroup = await Groups.add(group);
+      res.status(201).json(addGroup);
+    } catch ({ message }) {
+      console.log({ message });
+      res.status(500).json({ message: "server error adding group", message });
+    }
+  } else {
+    res.status(400).json({ message: "please provide group name" });
+  }
 });
 
-// Put
+// Put - works
 router.put("/:id", authCheck, async (req, res) => {
   try {
     const updateHost = await Groups.update(req.params.id, req.body);
@@ -58,7 +65,7 @@ router.put("/:id", authCheck, async (req, res) => {
   }
 });
 
-// Delete
+// Delete - works
 router.delete("/:id", authCheck, (req, res) => {
   Groups.remove(req.params.id)
     .then(count => {
