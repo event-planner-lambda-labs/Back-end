@@ -1,17 +1,18 @@
 const router = require("express").Router();
 
 const Events = require("./events-model");
-const Hosts = require("../host/host-model");
 const authCheck = require("../api/middleware/checkToken");
 
 // Get
 
-router.get("/", authCheck, (req, res) => {
-  Events.find()
-    .then(events => {
-      res.status(200).json(events);
-    })
-    .catch(error => res.status(500).json(error));
+router.get("/", authCheck, async (req, res) => {
+  try {
+    const events = await Events.find();
+    res.status(200).json(events);
+  } catch ({ message }) {
+    console.log({ message });
+    res.status(500).json({ message: "sever error", message });
+  }
 });
 
 // Get by ID
@@ -25,15 +26,9 @@ router.get("/:id", authCheck, (req, res) => {
 });
 
 // Post
-
 router.post("/", authCheck, async (req, res) => {
+  const newEvent = req.body;
   try {
-    const newEvent = req.body;
-
-    const host = await Hosts.add(newEvent.host);
-
-    newEvent.host = host[0].id;
-
     const addEvent = await Events.add(newEvent);
     res.status(201).json(addEvent);
   } catch ({ message }) {

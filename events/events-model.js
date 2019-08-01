@@ -22,7 +22,7 @@ function convertBoolean(events) {
 }
 
 function find() {
-  return db("events").select("id", "name");
+  return db("events").select("*");
 }
 
 function getGroupMembers(id) {
@@ -34,7 +34,7 @@ function getGroupMembers(id) {
 
 function findById(id) {
   return db("events")
-    .select("id", "name")
+    .select("id", "title")
     .where({ id })
     .first();
 }

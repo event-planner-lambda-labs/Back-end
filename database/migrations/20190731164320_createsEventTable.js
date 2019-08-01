@@ -27,15 +27,7 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable()
       .references("id")
-      .inTable("host")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
-
-    events
-      .integer("member_id")
-      .unsigned()
-      .references("id")
-      .inTable("member")
+      .inTable("users")
       .onDelete("CASCADE")
       .onUpdate("CASCADE");
 
