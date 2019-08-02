@@ -9,7 +9,10 @@ module.exports = {
 };
 
 function find() {
-  return db("members").select("user_id", "group_id");
+  return db("members")
+    .join("group", "user_id", "group_id")
+    .select("user_id", "group_id")
+    .where({ group_id: id });
 }
 
 function findById(user_id) {
