@@ -1,17 +1,17 @@
 // Update with your config settings.
 const dbConnection = process.env.DATABASE_URL;
+const dbPassword = process.env.DB_PASSWORD;
 
 module.exports = {
   development: {
-    client: "sqlite3",
+    client: "pg",
     useNullAsDefault: true,
     connection: {
-      filename: "./database/event_planner.db3"
-    },
-    pool: {
-      afterCreate: (conn, done) => {
-        conn.run("PRAGMA foreign_keys = ON", done);
-      }
+      host: "localhost",
+      user: "postgres",
+      password: "2119",
+      database: "eventPlanner",
+      charset: "utf8"
     },
     migrations: {
       directory: "./database/migrations"
