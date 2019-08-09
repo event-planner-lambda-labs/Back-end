@@ -39,9 +39,9 @@ function findById(id) {
     .first();
 }
 
-async function add(events) {
-  const [id] = await db("events").insert(events);
-  return findById(id);
+function add(events) {
+  // const [id] = await db("events").insert(events);
+  return db("events").insert(events);
 }
 
 function update(id, changes) {
