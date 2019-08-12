@@ -9,12 +9,12 @@ module.exports = {
 };
 
 function find() {
-  return db("users").select("id", "username");
+  return db("users").select("id", "username", "email");
 }
 
 function findById(id) {
   return db("users")
-    .select("id", "username")
+    .select("*")
     .where({ id })
     .first();
 }

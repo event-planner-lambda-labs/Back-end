@@ -15,7 +15,7 @@ exports.up = function(knex) {
     events.text("long_details").notNullable();
 
     events
-      .boolean("public")
+      .boolean("public_status")
       .notNullable()
       .defaultTo(true);
 
