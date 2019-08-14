@@ -1,18 +1,28 @@
-const express = require('express')
-const helmet = require('helmet')
-const morgan = require('morgan')
-const cors = require('cors')
+const express = require("express");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cors = require("cors");
 
-const server = express()
+const membersRouter = require("../member/member-router");
+const usersRouter = require("../users/user-router");
+const groupRouter = require("../group/group-router");
+const eventsRouter = require("../events/events-router");
 
-server.use(express.json())
-server.use(helmet())
-server.use(cors())
+const server = express();
 
-server.get('/', (req, res) => {
-    res.json({
-        message: 'Welcome to the Production of Event Planner'
-    })
-})
+server.use(express.json());
+server.use(helmet());
+server.use(cors());
 
-module.exports = server
+server.use("/member", membersRouter);
+server.use("/user", usersRouter);
+server.use("/group", groupRouter);
+server.use("/event", eventsRouter);
+
+server.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to the Production of Event Planner"
+  });
+});
+
+module.exports = server;

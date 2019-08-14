@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch --verbose",
-    "server": "nodemon index.js", 
+    "server": "nodemon",
     "start": "node index.js"
   },
   "repository": {
@@ -24,8 +24,10 @@
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
     "helmet": "^3.19.0",
     "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.6.0",
     "knex": "^0.19.0",
     "morgan": "^1.9.1",
     "pg": "^7.11.0",
@@ -37,5 +39,6 @@
     "knex-cleaner": "^1.2.1",
     "nodemon": "^1.19.1",
     "supertest": "^4.0.2"
-  }
+  },
+  "proxy": "http://localhost:5000"
 }
