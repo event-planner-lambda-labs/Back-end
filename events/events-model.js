@@ -34,15 +34,31 @@ function getGroupMembers(id) {
 
 function findById(id) {
   return db("events")
-    .select("id", "*")
+    .select("*")
     .where({ id })
     .first();
 }
 
 function add(events) {
-  // const [id] = await db("events").insert(events);
-  return db("events").insert(events);
+  // const id = await db("events")
+  //   .insert(events)
+  //   .returning("id");
+  return db("events")
+    .insert(events)
+    .returning("id")
+    .then(id => {
+      return findById(id[0]).then(res => res);
+    })
+    .catch(err => console.log(err));
 }
+
+// async function add(event) {
+//   const [id] = await db("events")
+//     .insert(event)
+//     .returning();
+//   console.log(id, "id check");
+//   return findById(id);
+// }
 
 function update(id, changes) {
   return db("events")

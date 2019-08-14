@@ -20,7 +20,10 @@ function findById(id) {
 }
 
 async function add(user) {
-  const [id] = await db("users").insert(user);
+  const [id] = await db("users")
+    .insert(user)
+    .returning("id");
+  console.log(id);
   return findById(id);
 }
 
