@@ -6,14 +6,6 @@ exports.up = function(knex) {
       .string("name", 128)
       .notNullable()
       .unique();
-
-    group
-      .integer("member_id")
-      .unsigned()
-      .references("id")
-      .inTable("member")
-      .onDelete("CASCADE")
-      .onUpdate("CASCADE");
   });
 };
 
