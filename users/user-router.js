@@ -31,7 +31,7 @@ router.post("/", authCheck, async (req, res) => {
       const addUser = await Users.add(user);
       res.status(201).json(addUser);
     } catch ({ message }) {
-      console.log({ message });
+      // console.log({ message });
       res.status(500).json({ message: "server error adding user", message });
     }
   } else {
@@ -49,7 +49,7 @@ router.put("/:id", authCheck, async (req, res) => {
       res.status(404).json({ message: "user not found" });
     }
   } catch ({ message }) {
-    console.log({ message });
+    // console.log({ message });
     res.status(500).json({ message: "server error updating user" });
   }
 });
@@ -65,7 +65,7 @@ router.delete("/:id", authCheck, (req, res) => {
       }
     })
     .catch(error => {
-      console.log(error);
+      // console.log(error);
       res.status(500).json({ message: "server error deleting user" });
     });
 });
