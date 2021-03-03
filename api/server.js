@@ -11,7 +11,7 @@ const eventsRouter = require("../events/events-router");
 const server = express();
 
 const corsOptions = {
-  origin: true,
+  origin: 'https://go-have.fun',
 }
 
 server.use(express.json());
