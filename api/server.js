@@ -10,9 +10,13 @@ const eventsRouter = require("../events/events-router");
 
 const server = express();
 
+const corsOptions = {
+  origin: true,
+}
+
 server.use(express.json());
 server.use(helmet());
-server.use(cors());
+server.use(cors(corsOptions));
 
 server.use("/member", membersRouter);
 server.use("/user", usersRouter);
